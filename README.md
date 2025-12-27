@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+# Pi-hole_DNSFirewall_-_AdBlocker
+A Docker-based Pi-hole setup that provides "network-wide ad blocking, tracker prevention, and DNS-level security".
+=======
+>>>>>>> eb2ce1d (Add Pi-hole DNS firewall configs)
 # 🚀 Pi-hole: Network-wide DNS Firewall & Ad Blocker
 
 A high-performance, Docker-based DNS sinkhole designed for **Network-wide Ad Blocking**, **Tracker Prevention**, and **DNS-level Security**.
@@ -92,6 +99,132 @@ sudo systemctl stop systemd-resolved
 sudo systemctl disable systemd-resolved
 ```
 
+---
+
+### 🔧 Fix DNS Conflicts Using `nmcli` (Proper Method)
+
+If you're experiencing DNS conflicts or connection issues, follow these steps to properly configure DNS using NetworkManager.
+
+#### 🔍 Step 1: Identify Active Connection
+
+```bash
+nmcli con show --active
+```
+
+**Example output:**
+```
+Wired connection 1
+```
+or
+```
+Wired connection 2
+```
+
+👉 **Note the connection name exactly.**
+
+---
+
+#### 🛑 Step 2: Remove Auto DNS from NetworkManager
+
+Replace `Wired connection 1` with your actual connection name:
+
+```bash
+sudo nmcli con mod "Wired connection 1" ipv4.ignore-auto-dns yes
+sudo nmcli con mod "Wired connection 1" ipv6.ignore-auto-dns yes
+```
+
+---
+
+#### 🌐 Step 3: Set Manual DNS
+
+**Option A: Google DNS**
+```bash
+sudo nmcli con mod "Wired connection 1" ipv4.dns "8.8.8.8 8.8.4.4"
+```
+
+**Option B: Cloudflare DNS**
+```bash
+sudo nmcli con mod "Wired connection 1" ipv4.dns "1.1.1.1 1.0.0.1"
+```
+
+---
+
+#### 🔄 Step 4: Restart the Connection
+
+```bash
+sudo nmcli con down "Wired connection 1"
+sudo nmcli con up "Wired connection 1"
+```
+
+**Or simply restart NetworkManager:**
+```bash
+sudo systemctl restart NetworkManager
+```
+
+---
+
+#### ✅ Step 5: Verify DNS Configuration
+
+**Check via nmcli:**
+```bash
+nmcli dev show | grep DNS
+```
+
+**Expected output:**
+```
+IP4.DNS[1]: 8.8.8.8
+IP4.DNS[2]: 8.8.4.4
+```
+
+**Check resolv.conf:**
+```bash
+cat /etc/resolv.conf
+```
+
+**You should see:**
+```
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+```
+
+---
+
+#### 🧪 Test DNS Resolution
+
+```bash
+nslookup google.com
+```
+
+**OR**
+
+```bash
+dig google.com
+```
+
+If it resolves → **DNS fixed** ✅
+
+---
+
+#### 🔥 Why This Fix Works
+
+- `resolv.conf` is auto-generated and gets overwritten
+- NetworkManager controls DNS at the system level
+- `nmcli` modifies DNS at the **source** (NetworkManager)
+- This prevents **Pi-hole DNS loops** & **Docker DNS failures**
+
+---
+
+#### 🧠 Bonus: Switch to Pi-hole DNS Later
+
+After Pi-hole is stable and running, point DNS to your local Pi-hole instance:
+
+```bash
+sudo nmcli con mod "Wired connection 1" ipv4.dns "127.0.0.1"
+sudo nmcli con up "Wired connection 1"
+```
+
+---
+
 ### 2. Installation
 
 Clone this repository and run the automated deployment script:
@@ -130,6 +263,7 @@ Add these URLs to your **Adlists** settings within the Pi-hole dashboard for max
 
 ---
 
+
 ## 👤 Author
 
 **Pranav Dakle**  
@@ -138,3 +272,7 @@ Specializing in DevOps, Cybersecurity, & IoT
 [![GitHub](https://img.shields.io/badge/GitHub-pranavdaklepatil-181717?logo=github)](https://github.com/pranavdaklepatil)
 
 ---
+<<<<<<< HEAD
+=======
+>>>>>>> 425af3a (REDMI.md updated)
+>>>>>>> eb2ce1d (Add Pi-hole DNS firewall configs)
