@@ -1,0 +1,140 @@
+# 🚀 Pi-hole: Network-wide DNS Firewall & Ad Blocker
+
+A high-performance, Docker-based DNS sinkhole designed for **Network-wide Ad Blocking**, **Tracker Prevention**, and **DNS-level Security**.
+
+---
+
+## 📖 Project Overview
+
+This setup transforms your Kali Linux VM or local server into a powerful **DNS Firewall (IDS-lite)**. By intercepting DNS queries at the network level, it prevents malicious domains from ever being resolved, providing a proactive layer of defense for all connected devices.
+
+---
+
+## 🧠 Core Capabilities
+
+### 🛡️ Level 1: Essential Protection
+
+- **Network-wide Blocking**: Block ads on devices that can't run traditional browser extensions, such as Smart TVs, Mobile Apps, IoT devices, and Gaming Consoles.
+- **Reduced Telemetry**: Dramatically reduce background data "phone-home" tracking from Google, Xiaomi, and Samsung services.
+- **Custom Blocklists**: Automatically sync with high-quality community sources to block:
+  - Malware & Phishing 🎣
+  - Crypto-miners 🪙
+  - Social Media & Gambling 🃏
+
+### 🔒 Level 2: Security & Blue-Teaming
+
+- **DNS Firewall**: Detect and drop Command-and-Control (C2) traffic at the DNS layer before a connection is even established.
+- **Per-Device Policies**: Apply different rules for different users (e.g., block YouTube on TV, but allow on Laptop).
+- **Log Analysis**: Export query data to Python, ELK, or Grafana for deep security audits and traffic visualization.
+
+---
+
+## 🛠️ Tech Stack & Requirements
+
+<div align="center">
+
+| Component | Technology |
+|:---------:|:----------:|
+| **Core Engine** | Pi-hole Official Docker Image |
+| **Platform** | Linux (Tested on Kali Linux 2024.x) |
+| **Containerization** | Docker & Docker Compose |
+| **Networking** | Port 53 (DNS), 80 (Admin UI), 443 (HTTPS) |
+
+</div>
+
+---
+
+## 📸 Dashboard Preview
+
+<div align="center">
+
+| Feature | Description |
+|:-------:|:-----------:|
+| **Real-time Stats** | Total queries, blocked domains, and percentage of ads filtered. |
+| **Query Log** | Live view of every DNS request hitting your network. |
+| **Group Management** | Assign clients to specific "Block-Profiles." |
+
+</div>
+
+<div align="center">
+
+### 🖥️ Screenshots
+
+#### Pi-hole Admin Dashboard
+![Pi-hole Dashboard](images/dashboard.png)
+*Real-time statistics and monitoring interface*
+
+#### DNS Query Log
+![Query Log](images/query-log.png)
+*Live DNS request monitoring and filtering*
+
+#### Blocklist Management
+![Blocklist Management](images/blocklist.png)
+*Custom blocklist configuration and management*
+
+#### Network Statistics
+![Network Stats](images/network-stats.png)
+*Detailed analytics and client-wise filtering stats*
+
+</div>
+
+---
+
+## 🚀 Quick Setup
+
+### 1. Prerequisites
+
+Ensure `systemd-resolved` is not occupying port 53, as Pi-hole needs this port to listen for DNS requests:
+
+```bash
+# Stop and disable the conflicting service
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+```
+
+### 2. Installation
+
+Clone this repository and run the automated deployment script:
+
+```bash
+# Make the script executable
+chmod +x pihole.sh
+
+# Run the installer
+./pihole.sh
+```
+
+### 3. Connect Your Devices
+
+To start filtering traffic, point your devices to the IP address of your Kali VM.
+
+<div align="center">
+
+| Device | Step |
+|:------:|:----:|
+| **Router** | Change LAN DNS settings to your `Kali_VM_IP`. |
+| **Windows** | Network Settings → IPv4 → DNS → Manual → `Kali_VM_IP`. |
+| **Mobile** | Wi-Fi Settings → IP Settings: Static → DNS 1: `Kali_VM_IP`. |
+
+</div>
+
+---
+
+## 🛡️ Recommended Blocklists (Security Mode)
+
+Add these URLs to your **Adlists** settings within the Pi-hole dashboard for maximum security:
+
+- **General Ads**: `https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts`
+- **Malware/Phishing**: `https://urlhaus.abuse.ch/downloads/hostfile/`
+- **Pro-Privacy (Hagezi)**: `https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt`
+
+---
+
+## 👤 Author
+
+**Pranav Dakle**  
+Specializing in DevOps, Cybersecurity, & IoT
+
+[![GitHub](https://img.shields.io/badge/GitHub-pranavdaklepatil-181717?logo=github)](https://github.com/pranavdaklepatil)
+
+---
