@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-# Pi-hole_DNSFirewall_-_AdBlocker
-A Docker-based Pi-hole setup that provides "network-wide ad blocking, tracker prevention, and DNS-level security".
-=======
->>>>>>> eb2ce1d (Add Pi-hole DNS firewall configs)
 # 🚀 Pi-hole: Network-wide DNS Firewall & Ad Blocker
 
 A high-performance, Docker-based DNS sinkhole designed for **Network-wide Ad Blocking**, **Tracker Prevention**, and **DNS-level Security**.
@@ -263,7 +256,6 @@ Add these URLs to your **Adlists** settings within the Pi-hole dashboard for max
 
 ---
 
-
 ## 👤 Author
 
 **Pranav Dakle**  
@@ -272,7 +264,3 @@ Specializing in DevOps, Cybersecurity, & IoT
 [![GitHub](https://img.shields.io/badge/GitHub-pranavdaklepatil-181717?logo=github)](https://github.com/pranavdaklepatil)
 
 ---
-<<<<<<< HEAD
-=======
->>>>>>> 425af3a (REDMI.md updated)
->>>>>>> eb2ce1d (Add Pi-hole DNS firewall configs)
